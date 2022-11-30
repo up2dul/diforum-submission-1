@@ -1,11 +1,39 @@
-import Layout from '@/components/Layout';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-const Home = () => (
-  <Layout>
-    <section className='x-fluid-container'>
-      <h1>Home page</h1>
-    </section>
-  </Layout>
-);
+import { asyncPopulate } from '@/states/shared/action';
+import Button from '@/components/Button';
+import Layout from '@/components/Layout';
+import ThreadCard from '@/components/ThreadCard';
+
+const Home = () => {
+  const { threads, users } = useSelector((states) => states);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(asyncPopulate());
+  }, [dispatch]);
+
+  const threadWithUser = threads.map((thread) => ({
+    ...thread,
+    user: users.find(({ id }) => id === thread.ownerId).name
+  }));
+
+  return (
+    <Layout isFluidContainer>
+      <div className='mb-14 flex items-center justify-between'>
+        <h1>☀️ Good morning, User</h1>
+
+        <Button onClick={() => console.log('clicked')}>Write a thread</Button>
+      </div>
+
+      <div className='flex flex-col gap-10'>
+        {threadWithUser.map((props) => (
+          <ThreadCard key={props.id} {...props} />
+        ))}
+      </div>
+    </Layout>
+  );
+};
 
 export default Home;
