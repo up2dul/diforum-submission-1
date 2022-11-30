@@ -8,6 +8,8 @@
     @apply text-dark bg-light-2;
   }
 
+  h1 { @apply text-2xl; }
+
   p { @apply text-dark-2; }
 }
 

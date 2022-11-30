@@ -7,7 +7,7 @@ const ThreadCard = ({ id, title, body, category, user, createdAt, totalComments 
   <Link to={'thread/' + id}>
     <article className='overflow-hidden rounded-xl border border-dark hover:outline outline-2'>
       <div className='border-b border-dashed border-dark bg-sky p-5 pb-3'>
-        <h1 className='truncate text-2xl font-medium'>{title}</h1>
+        <h1 className='truncate font-medium'>{title}</h1>
       </div>
 
       <p className='mx-5 my-3 truncate'>{body}</p>
