@@ -1,5 +1,35 @@
 import { HiChartBar, HiOutlineHome, HiOutlineUser } from 'react-icons/hi';
 
+function postedAt(date) {
+  const now = new Date();
+  const posted = new Date(date);
+  const diff = now - posted;
+  const diffDays = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const diffHours = Math.floor(diff / (1000 * 60 * 60));
+  const diffMinutes = Math.floor(diff / (1000 * 60));
+  const diffSeconds = Math.floor(diff / 1000);
+
+  if (diffDays > 0) {
+    return `${diffDays} days ago`;
+  }
+  if (diffHours > 0) {
+    return `${diffHours} hours ago`;
+  }
+  if (diffMinutes > 0) {
+    return `${diffMinutes} minutes ago`;
+  }
+  if (diffSeconds > 0) {
+    return `${diffSeconds} seconds ago`;
+  }
+  return 'just now';
+}
+
+function commentsCount(totalComment) {
+  if (totalComment > 1) return `${totalComment} comments`;
+  if (totalComment === 1) return `${totalComment} comment`;
+  return 'No comment';
+}
+
 const navItemList = [
   {
     to: '/',
@@ -18,4 +48,4 @@ const navItemList = [
   }
 ];
 
-export { navItemList };
+export { postedAt, commentsCount, navItemList };
