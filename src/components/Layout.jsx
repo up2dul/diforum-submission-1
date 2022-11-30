@@ -3,17 +3,22 @@ import PropTypes from 'prop-types';
 import Header from './Header';
 import Navbar from './Navbar';
 
-const Layout = ({ children }) => (
-  <>
-    <Header />
+const Layout = ({ isFluidContainer, children }) => {
+  const containerClass = isFluidContainer ? 'x-fluid-container' : 'x-container';
 
-    <Navbar />
+  return (
+    <>
+      <Header />
 
-    <main className='x-fluid-container pb-32 pt-24'>{children}</main>
-  </>
-);
+      <Navbar />
+
+      <main className={containerClass + ' pb-32 pt-24'}>{children}</main>
+    </>
+  );
+};
 
 Layout.propTypes = {
+  isFluidContainer: PropTypes.bool,
   children: PropTypes.node
 };
 
