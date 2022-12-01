@@ -30,6 +30,15 @@ function commentsCount(totalComment) {
   return 'No comment';
 }
 
+function showGreeting() {
+  const currentHour = new Date().getHours();
+
+  if (currentHour >= 4 && currentHour <= 10) return '⛅️ Good morning';
+  if (currentHour >= 11 && currentHour <= 15) return '☀️ Good afternoon';
+  if (currentHour >= 16 && currentHour <= 18) return '⛅️ Good evening';
+  if (currentHour >= 19 && currentHour <= 3) return '🌙 Good night';
+}
+
 const navItemList = [
   {
     to: '/',
@@ -48,4 +57,4 @@ const navItemList = [
   }
 ];
 
-export { postedAt, commentsCount, navItemList };
+export { postedAt, commentsCount, showGreeting, navItemList };
