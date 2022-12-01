@@ -3,6 +3,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Home from '@/pages/Home';
 import Leaderboard from '@/pages/Leaderboard';
 import Profile from '@/pages/Profile';
+import NotFound from '@/pages/NotFound';
 
 const router = createBrowserRouter([
   {
@@ -16,6 +17,10 @@ const router = createBrowserRouter([
   {
     path: '/profile',
     element: <Profile />
+  },
+  {
+    path: '/*',
+    element: <NotFound />
   }
 ]);
 
