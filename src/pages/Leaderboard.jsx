@@ -17,20 +17,16 @@ const Leaderboard = () => {
       <h1>🏆 Active users leaderboard</h1>
 
       <div className='mt-8 flex flex-col gap-y-4'>
-        <div className='flex justify-between'>
+        <div className='flex justify-between border-b border-dashed pb-2'>
           <h2>User</h2>
 
           <h2>Score</h2>
         </div>
 
-        {leaderboards.map(({ user: { name, avatar }, score }) => (
+        {leaderboard.map(({ user: { name, avatar }, score }) => (
           <article key={avatar} className='flex justify-between'>
             <div className='flex items-center gap-5'>
-              <img
-                src={avatar}
-                alt={name + ' ava'}
-                className='w-11 rounded-xl'
-              />
+              <img src={avatar} alt={name + ' ava'} className='w-11 rounded-xl' />
 
               <h2>{name}</h2>
             </div>
