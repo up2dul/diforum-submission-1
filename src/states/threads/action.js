@@ -5,20 +5,20 @@ const ActionType = {
   ADD_THREADS: 'ADD_THREADS'
 };
 
-function receiveThreadsActionCreator(users) {
+function receiveThreadsActionCreator(threads) {
   return {
     type: ActionType.RECEIVE_THREADS,
     payload: {
-      users
+      threads
     }
   };
 }
 
-function addThreadActionCreator(talk) {
+function addThreadActionCreator(threads) {
   return {
     type: ActionType.ADD_THREADS,
     payload: {
-      talk
+      threads
     }
   };
 }
@@ -26,12 +26,10 @@ function addThreadActionCreator(talk) {
 function asyncAddThread({ title, body, category }) {
   return async (dispatch) => {
     try {
-      const talk = await api.createThread({ title, body, category });
-      dispatch(addThreadActionCreator(talk));
+      const threads = await api.createThread({ title, body, category });
+      dispatch(addThreadActionCreator(threads));
     } catch (err) {
-      if (err instanceof Error) {
-        console.log('error:', err.message);
-      }
+      console.log('error:', err.message);
     }
   };
 }
