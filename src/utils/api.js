@@ -241,7 +241,9 @@ const api = (() => {
       throw new Error(message);
     }
 
-    const { data: leaderboards } = responseJson;
+    const {
+      data: { leaderboards }
+    } = responseJson;
 
     return leaderboards;
   }

@@ -5,7 +5,7 @@ import { asyncPopulate } from '@/states/shared/action';
 import Layout from '@/components/Layout';
 
 const Leaderboard = () => {
-  const { leaderboard: { leaderboards } } = useSelector((states) => states);
+  const { leaderboard } = useSelector((states) => states);
   const dispatch = useDispatch();
 
   useEffect(() => {
