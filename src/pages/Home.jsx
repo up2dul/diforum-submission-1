@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { asyncPopulate } from '@/states/shared/action';
+import { showGreeting } from '@/utils';
 import Button from '@/components/Button';
 import Layout from '@/components/Layout';
 import ThreadCard from '@/components/ThreadCard';
@@ -16,13 +17,13 @@ const Home = () => {
 
   const threadWithUser = threads.map((thread) => ({
     ...thread,
-    user: users.find(({ id }) => id === thread.ownerId).name
+    user: users.find(({ id }) => id === thread.ownerId)['name']
   }));
 
   return (
     <Layout isFluidContainer>
       <div className='mb-14 flex items-center justify-between'>
-        <h1>☀️ Good morning, User</h1>
+        <h1>{showGreeting()}, User</h1>
 
         <Button onClick={() => console.log('clicked')}>Write a thread</Button>
       </div>
