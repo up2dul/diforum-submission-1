@@ -8,9 +8,11 @@
     @apply text-dark bg-light-2;
   }
 
-  h1 { @apply text-2xl; }
+  h1 { @apply text-3xl; }
 
-  h2 { @apply text-xl; }
+  h2 { @apply text-2xl; }
+
+  h3 { @apply text-lg; }
 
   p { @apply text-dark-2; }
 }
