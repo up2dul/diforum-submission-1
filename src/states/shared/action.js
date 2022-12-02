@@ -1,7 +1,7 @@
 import api from '@/utils/api';
 import { receiveThreadsActionCreator } from '@/states/threads/action';
 import { receiveUsersActionCreator } from '@/states/users/action';
-import { receiveLeaderboardActionCreator } from '../leaderboard/action';
+import { receiveLeaderboardActionCreator } from '@/states/leaderboard/action';
 
 function asyncPopulate() {
   return async (dispatch) => {

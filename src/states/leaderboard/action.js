@@ -6,7 +6,7 @@ function receiveLeaderboardActionCreator(leaderboard) {
   return {
     type: ActionType.RECEIVE_LEADERBOARD,
     payload: {
-      leaderboard: leaderboard
+      leaderboard
     }
   };
 }
