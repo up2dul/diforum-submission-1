@@ -5,10 +5,13 @@ import { HiOutlineChat, HiOutlineClock, HiOutlineUser } from 'react-icons/hi';
 import { postedAt } from '@/utils';
 
 const ThreadCard = ({ id, title, body, category, user, createdAt, totalComments }) => (
-  <Link to={'thread/' + id}>
-    <article title={title} className='overflow-hidden rounded-xl border-2 border-dark bg-light hover:border-dashed'>
+  <Link to={`thread/${id}`}>
+    <article
+      title={title}
+      className='overflow-hidden rounded-xl border-2 border-dark bg-light hover:border-dashed'
+    >
       <div className='border-b border-dashed border-dark p-5 pb-3'>
-        <h1 className='truncate font-medium'>{title}</h1>
+        <h2 className='truncate font-medium'>{title}</h2>
       </div>
 
       <p className='mx-5 my-3 truncate'>{body}</p>

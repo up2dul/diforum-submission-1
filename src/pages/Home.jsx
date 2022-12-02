@@ -17,13 +17,13 @@ const Home = () => {
 
   const threadWithUser = threads.map((thread) => ({
     ...thread,
-    user: users.find(({ id }) => id === thread.ownerId)['name']
+    user: users.find(({ id }) => id === thread.ownerId).name
   }));
 
   return (
     <Layout isFluidContainer>
       <div className='mb-14 flex items-center justify-between'>
-        <h1>{showGreeting()}, User</h1>
+        <h2>{showGreeting()}, User</h2>
 
         <Button onClick={() => console.log('clicked')}>Write a thread</Button>
       </div>

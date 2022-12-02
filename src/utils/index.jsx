@@ -36,7 +36,7 @@ function showGreeting() {
   if (currentHour >= 4 && currentHour <= 10) return '⛅️ Good morning';
   if (currentHour >= 11 && currentHour <= 15) return '☀️ Good afternoon';
   if (currentHour >= 16 && currentHour <= 18) return '⛅️ Good evening';
-  if (currentHour >= 19 && currentHour <= 3) return '🌙 Good night';
+  return '🌙 Good night';
 }
 
 const navItemList = [
