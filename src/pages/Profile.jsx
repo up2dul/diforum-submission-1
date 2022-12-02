@@ -3,18 +3,18 @@ import Layout from '@/components/Layout';
 
 const Profile = () => (
   <Layout>
-    <h1>🙂 Profile</h1>
+    <h2>🙂 Profile</h2>
 
-    <div className='my-8 flex flex-col items-center gap-y-3'>
+    <div className='my-8 flex flex-col items-center'>
       <img
         src='https://ui-avatars.com/api/?name=Mark&background=random'
-        alt='My ava'
-        className='w-16 rounded-xl'
+        alt='My avatar'
+        className='mb-3 w-16 rounded-xl'
       />
 
-      <h1>Mark zukiberh</h1>
+      <h2>Mark zukiberh</h2>
 
-      <h2 className='mb-8'>mark@facebook.com</h2>
+      <h3 className='mb-8'>mark@facebook.com</h3>
 
       <Button>Log out</Button>
     </div>
