@@ -4,11 +4,16 @@ import Home from '@/pages/Home';
 import Leaderboard from '@/pages/Leaderboard';
 import Profile from '@/pages/Profile';
 import NotFound from '@/pages/NotFound';
+import Thread from '@/pages/Thread';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <Home />
+  },
+  {
+    path: '/thread/:threadId',
+    element: <Thread />
   },
   {
     path: '/leaderboard',
@@ -24,8 +29,6 @@ const router = createBrowserRouter([
   }
 ]);
 
-const App = () => {
-  return <RouterProvider router={router} />;
-};
+const App = () => <RouterProvider router={router} />;
 
 export default App;
