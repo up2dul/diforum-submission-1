@@ -7,6 +7,7 @@
   "extends": [
     "plugin:react/recommended",
     "plugin:react-hooks/recommended",
+    "airbnb",
     "prettier"
   ],
   "overrides": [],
@@ -19,7 +20,16 @@
     "react-hooks"
   ],
   "rules": {
+    "linebreak-style": "off",
+    "no-alert": "off",
+    "no-console": "off",
+    "no-use-before-define":"off",
+    "no-underscore-dangle": "off",
     "no-duplicate-imports": "error",
+    "import/no-unresolved": "off",
+    "import/extensions": "off",
+    "import/prefer-default-export": "off",
+    "react/function-component-definition": "off",
     "react/react-in-jsx-scope": "off",
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
