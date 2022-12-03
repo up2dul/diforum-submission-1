@@ -32,7 +32,7 @@ const Login = () => {
 
         <Input title='Password' type='password' id='passwordInput' />
 
-        <Button>Log in</Button>
+        <Button type='submit'>Log in</Button>
 
         <p className='mt-3'>
           New in here?{' '}

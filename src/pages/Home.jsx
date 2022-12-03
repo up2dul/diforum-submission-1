@@ -22,7 +22,7 @@ const Home = () => {
 
   return (
     <Layout isFluidContainer>
-      <div className='mb-14 flex items-center justify-between'>
+      <div className='mb-14 flex flex-wrap items-center justify-between gap-4'>
         <h2>{showGreeting()}, User</h2>
 
         <Button onClick={() => console.log('clicked')}>Write a thread</Button>

@@ -12,9 +12,9 @@ const NavItem = ({ to, title, icon }) => (
 );
 
 NavItem.propTypes = {
-  to: PropTypes.string,
-  title: PropTypes.string,
-  icon: PropTypes.element
+  to: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  icon: PropTypes.element.isRequired
 };
 
 export default NavItem;
