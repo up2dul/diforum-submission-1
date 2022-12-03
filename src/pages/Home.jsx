@@ -6,13 +6,15 @@ import { showGreeting } from '@/utils';
 import Button from '@/components/Button';
 import Layout from '@/components/Layout';
 import ThreadCard from '@/components/ThreadCard';
+import { asyncPreloadProcess } from '@/states/is-preload/action';
 
 const Home = () => {
-  const { threads, users } = useSelector((states) => states);
+  const { authUser, threads, users } = useSelector((states) => states);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(asyncPopulate());
+    dispatch(asyncPreloadProcess());
   }, [dispatch]);
 
   const threadWithUser = threads.map((thread) => ({
@@ -23,7 +25,7 @@ const Home = () => {
   return (
     <Layout isFluidContainer>
       <div className='mb-14 flex flex-wrap items-center justify-between gap-4'>
-        <h2>{showGreeting()}, User</h2>
+        <h2>{showGreeting()}, {authUser.name}</h2>
 
         <Button onClick={() => console.log('clicked')}>Write a thread</Button>
       </div>
