@@ -23,12 +23,7 @@ const Register = () => {
       <h2>📲 Register for your account</h2>
 
       <form className='mx-auto mt-8 flex max-w-md flex-col items-center justify-center gap-y-6'>
-        <Input
-          title='Full name'
-          type='text'
-          placeholder='e.g. Guntur hidayat'
-          id='fullNameInput'
-        />
+        <Input title='Full name' type='text' placeholder='e.g. Guntur hidayat' id='fullNameInput' />
 
         <Input
           title='Email address'
