@@ -5,6 +5,7 @@ import Leaderboard from '@/pages/Leaderboard';
 import Profile from '@/pages/Profile';
 import NotFound from '@/pages/NotFound';
 import Thread from '@/pages/Thread';
+import Login from '@/pages/Login';
 
 const router = createBrowserRouter([
   {
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
   {
     path: '/profile',
     element: <Profile />
+  },
+  {
+    path: '/login',
+    element: <Login />
   },
   {
     path: '/*',
