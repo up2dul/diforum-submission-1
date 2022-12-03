@@ -1,5 +1,3 @@
-import { HiChartBar, HiOutlineHome, HiOutlineUser } from 'react-icons/hi';
-
 function postedAt(date) {
   const now = new Date();
   const posted = new Date(date);
@@ -39,22 +37,4 @@ function showGreeting() {
   return '🌙 Good night';
 }
 
-const navItemList = [
-  {
-    to: '/',
-    title: 'Home',
-    icon: <HiOutlineHome />
-  },
-  {
-    to: '/leaderboard',
-    title: 'Leaderboard',
-    icon: <HiChartBar />
-  },
-  {
-    to: '/profile',
-    title: 'My profile',
-    icon: <HiOutlineUser />
-  }
-];
-
-export { postedAt, commentsCount, showGreeting, navItemList };
+export { postedAt, commentsCount, showGreeting };
