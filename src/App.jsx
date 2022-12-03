@@ -9,10 +9,10 @@ import Profile from '@/pages/Profile';
 import NotFound from '@/pages/NotFound';
 import Thread from '@/pages/Thread';
 import Login from '@/pages/Login';
-import Register from './pages/Register';
+import Register from '@/pages/Register';
 
 const App = () => {
-  const { authUser, isPreload } = useSelector((states) => states);
+  const { authUser = null, isPreload = false } = useSelector((states) => states);
   const dispatch = useDispatch();
 
   useEffect(() => {
