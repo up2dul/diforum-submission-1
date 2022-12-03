@@ -1,24 +1,44 @@
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+
+import { asyncUnsetAuthUser } from '@/states/auth-user/action';
+import { asyncPreloadProcess } from '@/states/is-preload/action';
 import Button from '@/components/Button';
 import Layout from '@/components/Layout';
 
-const Profile = () => (
-  <Layout>
-    <h2>🙂 Profile</h2>
+const Profile = () => {
+  const { authUser, isPreload = false } = useSelector((states) => states);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { avatar, name, email } = authUser;
 
-    <div className='my-8 flex flex-col items-center'>
-      <img
-        src='https://ui-avatars.com/api/?name=Mark&background=random'
-        alt='My avatar'
-        className='mb-3 w-16 rounded-xl'
-      />
+  useEffect(() => {
+    dispatch(asyncPreloadProcess());
+  }, [dispatch]);
 
-      <h2>Mark zukiberh</h2>
+  if (isPreload) return null;
 
-      <h3 className='mb-8'>mark@facebook.com</h3>
+  const handleLogOut = () => {
+    dispatch(asyncUnsetAuthUser());
+    navigate('/login');
+  };
 
-      <Button>Log out</Button>
-    </div>
-  </Layout>
-);
+  return (
+    <Layout>
+      <h2>🙂 Profile</h2>
+
+      <div className='mt-8 flex flex-col items-center'>
+        <img src={avatar} alt='My avatar' className='mb-3 w-16 rounded-xl' />
+
+        <h2>{name}</h2>
+
+        <h3 className='mb-8'>{email}</h3>
+
+        <Button onClick={handleLogOut}>Log out</Button>
+      </div>
+    </Layout>
+  );
+};
 
 export default Profile;
