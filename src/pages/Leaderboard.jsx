@@ -28,7 +28,7 @@ const Leaderboard = () => {
             <div className='flex items-center gap-5'>
               <img src={avatar} alt={`${name} ava`} className='w-11 rounded-xl' />
 
-              <h2>{name}</h2>
+              <h2 className='truncate'>{name}</h2>
             </div>
 
             <h2>{score}</h2>

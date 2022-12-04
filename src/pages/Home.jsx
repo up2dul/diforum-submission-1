@@ -35,11 +35,11 @@ const Home = () => {
         </div>
       ) : (
         <h2 className='mb-14'>
-          Let&apos;s share your thoughts to other,{' '}
+          ✏️ Let&apos;s share your thoughts to other,{' '}
           <Link to='/register' className='text-link'>
             register
           </Link>{' '}
-          now
+          now!
         </h2>
       )}
 

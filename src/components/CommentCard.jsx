@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { postedAt } from '@/utils';
 
 const CommentCard = ({ content, createdAt, owner, upVotesBy, downVotesBy }) => (
-  <article className='flex flex-col gap-3 border-y-2 border-dashed py-3'>
+  <article className='flex flex-col gap-3 rounded-xl border py-3 px-4'>
     <div className='flex items-center gap-3'>
       <img src={owner.avatar} alt={`${owner.name}'s avatar`} className='w-12 rounded-xl' />
 
@@ -19,11 +19,11 @@ const CommentCard = ({ content, createdAt, owner, upVotesBy, downVotesBy }) => (
 
     <div className='flex items-center justify-between gap-2 pt-2'>
       <div className='flex gap-8'>
-        <button type='button' title='Up vote thread'>
+        <button type='button' title='Up vote comment'>
           <HiArrowUp className='mr-1 inline' /> {upVotesBy.length}
         </button>
 
-        <button type='button' title='Down vote thread'>
+        <button type='button' title='Down vote comment'>
           <HiArrowDown className='mr-1 inline' /> {downVotesBy.length}
         </button>
       </div>

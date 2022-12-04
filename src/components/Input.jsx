@@ -6,7 +6,7 @@ const Input = ({ title, type, id, placeholder }) => (
     <input
       type={type}
       id={id}
-      className='mt-2 block rounded-xl border py-1 px-2'
+      className='mt-2'
       placeholder={placeholder}
       autoComplete='off'
       required
