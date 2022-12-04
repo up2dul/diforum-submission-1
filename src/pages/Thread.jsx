@@ -1,19 +1,22 @@
 import { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link, useParams } from 'react-router-dom';
 import { HiArrowDown, HiArrowUp } from 'react-icons/hi';
 
+import { asyncPreloadProcess } from '@/states/is-preload/action';
 import { asyncReceiveThreadDetail } from '@/states/thread-detail/action';
 import { commentsCount, postedAt } from '@/utils';
 import Layout from '@/components/Layout';
+import AddComment from '@/components/AddComment';
 import CommentCard from '@/components/CommentCard';
 
 const Thread = () => {
   const { threadId } = useParams();
-  const { threadDetail } = useSelector((states) => states);
+  const { authUser, threadDetail } = useSelector((states) => states);
   const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(asyncPreloadProcess());
     dispatch(asyncReceiveThreadDetail(threadId));
   }, [threadId, dispatch]);
 
@@ -59,9 +62,20 @@ const Thread = () => {
         </div>
 
         <div className='mt-10'>
-          <h3>{commentsCount(comments.length)}</h3>
+          {authUser ? (
+            <AddComment />
+          ) : (
+            <p>
+              <Link to='/login' className='text-link'>
+                Log in
+              </Link>{' '}
+              to add your comment
+            </p>
+          )}
 
-          <div className='mt-8 flex flex-col gap-y-4'>
+          <h3 className='mt-8 border-b-2 border-dashed pb-2'>{commentsCount(comments.length)}</h3>
+
+          <div className='mt-5 flex flex-col gap-y-4'>
             {comments.map((props) => (
               <CommentCard key={props.id} {...props} />
             ))}
