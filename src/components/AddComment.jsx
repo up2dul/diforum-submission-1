@@ -10,6 +10,8 @@ const AddComment = () => (
       id='commentInput'
     />
 
+    <br />
+
     <Button type='submit'>Add comment</Button>
   </form>
 );
