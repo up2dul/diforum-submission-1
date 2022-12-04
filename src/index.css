@@ -16,6 +16,9 @@
 
   p { @apply text-dark-2; }
 
+  input,
+  textarea { @apply block rounded-xl border border-dark py-1 px-2; }
+
   a:focus,
   button:focus { @apply ring-offset-4 ring-4; }
 }
@@ -26,9 +29,7 @@
     @apply rounded-3xl py-2 px-5 hover:outline-dashed;
   }
 
-  .button { @apply rounded-xl; }
-
-  .button { @apply bg-yellow outline outline-dark; }
+  .button { @apply bg-yellow outline rounded-xl outline-dark; }
 
   .nav-link-active { @apply bg-sky outline outline-dark; }
 }
