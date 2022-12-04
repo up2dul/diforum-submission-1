@@ -10,6 +10,7 @@ import NotFound from '@/pages/NotFound';
 import Thread from '@/pages/Thread';
 import Login from '@/pages/Login';
 import Register from '@/pages/Register';
+import CreateThread from './pages/CreateThread';
 
 const App = () => {
   const { authUser = null, isPreload = false } = useSelector((states) => states);
@@ -28,7 +29,10 @@ const App = () => {
         <Route path='/thread/:threadId' element={<Thread />} />
         <Route path='/leaderboard' element={<Leaderboard />} />
         {authUser ? (
-          <Route path='/profile' element={<Profile />} />
+          <>
+            <Route path='/profile' element={<Profile />} />
+            <Route path='/create-thread' element={<CreateThread />} />
+          </>
         ) : (
           <>
             <Route path='/login' element={<Login />} />
