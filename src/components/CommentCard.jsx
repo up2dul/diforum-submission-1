@@ -9,13 +9,13 @@ const CommentCard = ({ content, createdAt, owner, upVotesBy, downVotesBy }) => (
     <div className='flex items-center gap-3'>
       <img src={owner.avatar} alt={`${owner.name}'s avatar`} className='w-12 rounded-xl' />
 
-      <div>
+      <div className='overflow-auto'>
         <h3>{owner.name}</h3>
         <p className='text-sm'>{postedAt(createdAt)}</p>
       </div>
     </div>
 
-    <p className='pt-2'>{content}</p>
+    <p className='pt-2 break-words'>{content}</p>
 
     <div className='flex items-center justify-between gap-2 pt-2'>
       <div className='flex gap-8'>
