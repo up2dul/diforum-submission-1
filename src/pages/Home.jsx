@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { asyncPopulate } from '@/states/shared/action';
 import { asyncPreloadProcess } from '@/states/is-preload/action';
@@ -12,6 +12,7 @@ import ThreadCard from '@/components/ThreadCard';
 const Home = () => {
   const { authUser, threads, users } = useSelector((states) => states);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(asyncPopulate());
@@ -31,7 +32,9 @@ const Home = () => {
             {showGreeting()}, {authUser?.name}
           </h2>
 
-          <Button onClick={() => console.log('clicked')}>Write a thread</Button>
+          <Button title='Create a new thread' onClick={() => navigate('/create-thread')}>
+            Write a thread
+          </Button>
         </div>
       ) : (
         <h2 className='mb-14'>

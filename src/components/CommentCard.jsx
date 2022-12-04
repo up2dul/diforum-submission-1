@@ -15,7 +15,7 @@ const CommentCard = ({ content, createdAt, owner, upVotesBy, downVotesBy }) => (
       </div>
     </div>
 
-    <p className='pt-2 break-words'>{content}</p>
+    <p className='break-words pt-2'>{content}</p>
 
     <div className='flex items-center justify-between gap-2 pt-2'>
       <div className='flex gap-8'>

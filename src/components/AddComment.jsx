@@ -1,9 +1,15 @@
 import Button from './Button';
+import Input from './Input';
 
 const AddComment = () => (
   <form>
-    <h3>Add your comment</h3>
-    <textarea rows='4' className='mt-2 mb-4 w-full' placeholder='Your comment here...' required />
+    <Input
+      title='Add your comment'
+      type='textarea'
+      placeholder='Your comment here...'
+      id='commentInput'
+    />
+
     <Button type='submit'>Add comment</Button>
   </form>
 );

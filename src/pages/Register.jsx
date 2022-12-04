@@ -32,7 +32,13 @@ const Register = () => {
           id='emailInput'
         />
 
-        <Input title='Password' type='password' id='passwordInput' />
+        <Input
+          title='Password'
+          type='password'
+          placeholder='min. 6 char'
+          min={6}
+          id='passwordInput'
+        />
 
         <Button type='submit'>Register</Button>
 
