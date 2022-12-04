@@ -1,28 +1,39 @@
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useRef } from 'react';
+import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
-import { asyncPreloadProcess } from '@/states/is-preload/action';
+import { asyncRegisterUser } from '@/states/users/action';
 import Layout from '@/components/Layout';
 import Input from '@/components/Input';
 import Button from '@/components/Button';
 
 const Register = () => {
-  const { authUser } = useSelector((states) => states);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const formRef = useRef(null);
 
-  useEffect(() => {
-    dispatch(asyncPreloadProcess());
-  }, [dispatch]);
+  const handleRegister = (e) => {
+    e.preventDefault();
 
-  if (authUser) navigate('/profile');
+    const name = formRef.current[0].value;
+    const email = formRef.current[1].value;
+    const password = formRef.current[2].value;
+
+    dispatch(asyncRegisterUser({ name, email, password }));
+    Swal.fire('Register success!', 'Now you can log in', 'success');
+    navigate('/login');
+  };
 
   return (
     <Layout>
       <h2>📲 Register for your account</h2>
 
-      <form className='mx-auto mt-8 flex max-w-md flex-col items-center justify-center gap-y-6'>
+      <form
+        ref={formRef}
+        className='mx-auto mt-8 flex max-w-md flex-col items-center justify-center gap-y-6'
+        onSubmit={handleRegister}
+      >
         <Input title='Full name' type='text' placeholder='e.g. Guntur hidayat' id='fullNameInput' />
 
         <Input

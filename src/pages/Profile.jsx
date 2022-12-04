@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 import { asyncUnsetAuthUser } from '@/states/auth-user/action';
 import { asyncPreloadProcess } from '@/states/is-preload/action';
@@ -19,9 +20,18 @@ const Profile = () => {
 
   if (isPreload) return null;
 
-  const handleLogOut = () => {
-    dispatch(asyncUnsetAuthUser());
-    navigate('/login');
+  const handleLogout = () => {
+    Swal.fire({
+      title: 'Are you sure want to log out?',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, log out now',
+      icon: 'warning'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(asyncUnsetAuthUser());
+        navigate('/login');
+      }
+    });
   };
 
   return (
@@ -35,7 +45,7 @@ const Profile = () => {
 
         <h3 className='mb-8'>{email}</h3>
 
-        <Button onClick={handleLogOut}>Log out</Button>
+        <Button onClick={handleLogout}>Log out</Button>
       </div>
     </Layout>
   );

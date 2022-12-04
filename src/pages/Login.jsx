@@ -1,33 +1,27 @@
-import { useEffect, useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useRef } from 'react';
+import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
-import { asyncPreloadProcess } from '@/states/is-preload/action';
 import { asyncSetAuthUser } from '@/states/auth-user/action';
 import Layout from '@/components/Layout';
 import Input from '@/components/Input';
 import Button from '@/components/Button';
 
 const Login = () => {
-  const { isPreload } = useSelector((states) => states);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const formRef = useRef(null);
 
-  useEffect(() => {
-    dispatch(asyncPreloadProcess());
-  }, [dispatch]);
-
-  if (isPreload) return null;
-
-  const handleSubmit = (e) => {
+  const handleLogin = (e) => {
     e.preventDefault();
 
     const email = formRef.current[0].value;
     const password = formRef.current[1].value;
 
     dispatch(asyncSetAuthUser({ email, password }));
-    navigate('/profile');
+    Swal.fire('Login success!', 'Now you can interact with other', 'success');
+    navigate('/');
   };
 
   return (
@@ -37,7 +31,7 @@ const Login = () => {
       <form
         ref={formRef}
         className='mx-auto mt-8 flex max-w-md flex-col items-center justify-center gap-y-6'
-        onSubmit={handleSubmit}
+        onSubmit={handleLogin}
       >
         <Input
           title='Email address'
@@ -46,7 +40,7 @@ const Login = () => {
           id='emailInput'
         />
 
-        <Input title='Password' type='password' id='passwordInput' />
+        <Input title='Password' type='password' placeholder='******' id='passwordInput' />
 
         <Button type='submit'>Log in</Button>
 
