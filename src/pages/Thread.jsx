@@ -3,8 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import { HiArrowDown, HiArrowUp } from 'react-icons/hi';
 
-import { asyncPreloadProcess } from '@/states/is-preload/action';
-import { asyncReceiveThreadDetail } from '@/states/thread-detail/action';
+import { asyncAddThreadComment, asyncReceiveThreadDetail } from '@/states/thread-detail/action';
 import { commentsCount, postedAt } from '@/utils';
 import Layout from '@/components/Layout';
 import AddComment from '@/components/AddComment';
@@ -14,12 +13,6 @@ const Thread = () => {
   const { threadId } = useParams();
   const { authUser, threadDetail } = useSelector((states) => states);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(asyncPreloadProcess());
-    dispatch(asyncReceiveThreadDetail(threadId));
-  }, [threadId, dispatch]);
-
   const {
     title,
     body,
@@ -30,6 +23,15 @@ const Thread = () => {
     upVotesBy = [],
     downVotesBy = []
   } = threadDetail;
+
+  useEffect(() => {
+    dispatch(asyncReceiveThreadDetail(threadId));
+  }, [threadId, dispatch]);
+
+  const handleCommentSubmit = (content) => {
+    dispatch(asyncAddThreadComment(content, threadId));
+    console.log('new comment:', content);
+  };
 
   return (
     <Layout withBackButton>
@@ -63,7 +65,7 @@ const Thread = () => {
 
         <div className='mt-10'>
           {authUser ? (
-            <AddComment />
+            <AddComment onSubmit={handleCommentSubmit} />
           ) : (
             <p>
               <Link to='/login' className='text-link'>
@@ -76,8 +78,8 @@ const Thread = () => {
           <h3 className='mt-8 border-b-2 border-dashed pb-2'>{commentsCount(comments.length)}</h3>
 
           <div className='mt-5 flex flex-col gap-y-4'>
-            {comments.map((props) => (
-              <CommentCard key={props.id} {...props} />
+            {comments?.map((comment) => (
+              <CommentCard key={comment.id} {...comment} />
             ))}
           </div>
         </div>
