@@ -2,7 +2,8 @@ import api from '@/utils/api';
 
 const ActionType = {
   RECEIVE_THREAD_DETAIL: 'RECEIVE_THREAD_DETAIL',
-  CLEAR_THREAD_DETAIL: 'CLEAR_THREAD_DETAIL'
+  CLEAR_THREAD_DETAIL: 'CLEAR_THREAD_DETAIL',
+  ADD_THREAD_COMMENT: 'ADD_THREAD_COMMENT'
 };
 
 function receiveThreadDetailActionCreator(threadDetail) {
@@ -20,6 +21,15 @@ function clearThreadDetailActionCreator() {
   };
 }
 
+function addThreadCommentActionCreator(comment) {
+  return {
+    type: ActionType.ADD_THREAD_COMMENT,
+    payload: {
+      comment
+    }
+  };
+}
+
 function asyncReceiveThreadDetail(threadId) {
   return async (dispatch) => {
     dispatch(clearThreadDetailActionCreator());
@@ -33,4 +43,21 @@ function asyncReceiveThreadDetail(threadId) {
   };
 }
 
-export { ActionType, receiveThreadDetailActionCreator, asyncReceiveThreadDetail };
+function asyncAddThreadComment(content, threadId) {
+  return async (dispatch) => {
+    try {
+      const comment = await api.createComment(content, threadId);
+      dispatch(addThreadCommentActionCreator(comment));
+    } catch (err) {
+      console.log('error:', err.message);
+    }
+  };
+}
+
+export {
+  ActionType,
+  receiveThreadDetailActionCreator,
+  asyncReceiveThreadDetail,
+  addThreadCommentActionCreator,
+  asyncAddThreadComment
+};
