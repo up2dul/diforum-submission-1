@@ -193,11 +193,13 @@ const api = (() => {
 
     const responseJson = await response.json();
 
-    const { status, message } = responseJson;
+    const { status, message, data: { comment } } = responseJson;
 
     if (status !== 'success') {
       throw new Error(message);
     }
+
+    return comment;
   }
   // #endregion Comments
 
