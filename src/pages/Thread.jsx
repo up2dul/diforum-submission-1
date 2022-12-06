@@ -51,11 +51,19 @@ const Thread = () => {
 
         <div className='flex items-center justify-between gap-2'>
           <div className='flex gap-8'>
-            <button type='button' title='Up vote thread'>
+            <button
+              type='button'
+              title={authUser ? 'Up vote thread' : 'Log in to up vote'}
+              disabled={!authUser}
+            >
               <HiArrowUp className='mr-1 inline' /> {upVotesBy.length}
             </button>
 
-            <button type='button' title='Down vote thread'>
+            <button
+              type='button'
+              title={authUser ? 'Down vote thread' : 'Log in to down vote'}
+              disabled={!authUser}
+            >
               <HiArrowDown className='mr-1 inline' /> {downVotesBy.length}
             </button>
           </div>
