@@ -16,7 +16,7 @@ import VoteButton from '@/components/VoteButton';
 
 const Thread = () => {
   const { threadId } = useParams();
-  const { authUser, threadDetail } = useSelector((states) => states);
+  const { authUser = null, threadDetail } = useSelector((states) => states);
   const dispatch = useDispatch();
   const {
     title,
@@ -59,10 +59,12 @@ const Thread = () => {
         <div className='flex items-center justify-between gap-2'>
           <div className='flex gap-8'>
             <VoteButton
-              voteType='thread'
-              upOrDown='up'
-              isDisabled={!authUser}
-              isVoted={upVotesBy.includes(authUser.id)}
+              options={{
+                voteType: 'thread',
+                upOrDown: 'up',
+                isDisabled: !authUser,
+                isVoted: upVotesBy.includes(authUser?.id)
+              }}
               onVote={handleUpVote}
               onNeutral={handleNeutralVote}
             >
@@ -70,10 +72,12 @@ const Thread = () => {
             </VoteButton>
 
             <VoteButton
-              voteType='thread'
-              upOrDown='down'
-              isDisabled={!authUser}
-              isVoted={downVotesBy.includes(authUser.id)}
+              options={{
+                voteType: 'thread',
+                upOrDown: 'down',
+                isDisabled: !authUser,
+                isVoted: downVotesBy.includes(authUser?.id)
+              }}
               onVote={handleDownVote}
               onNeutral={handleNeutralVote}
             >
