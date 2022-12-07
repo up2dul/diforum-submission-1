@@ -11,6 +11,24 @@ function threadDetailReducer(threadDetail = {}, action = {}) {
         ...threadDetail,
         comments: [action?.payload?.comment, ...threadDetail.comments]
       };
+    case ActionType.UP_VOTE_THREAD:
+      return {
+        ...threadDetail,
+        upVotesBy: [...threadDetail.upVotesBy, action?.payload?.userId],
+        downVotesBy: threadDetail.downVotesBy.filter((vote) => vote !== action?.payload?.userId)
+      };
+    case ActionType.DOWN_VOTE_THREAD:
+      return {
+        ...threadDetail,
+        upVotesBy: threadDetail.upVotesBy.filter((vote) => vote !== action?.payload?.userId),
+        downVotesBy: [...threadDetail.downVotesBy, action?.payload?.userId]
+      };
+    case ActionType.NEUTRAL_VOTE_THREAD:
+      return {
+        ...threadDetail,
+        upVotesBy: threadDetail.upVotesBy.filter((vote) => vote !== action?.payload?.userId),
+        downVotesBy: threadDetail.downVotesBy.filter((vote) => vote !== action?.payload?.userId)
+      };
     default:
       return threadDetail;
   }

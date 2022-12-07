@@ -3,7 +3,10 @@ import api from '@/utils/api';
 const ActionType = {
   RECEIVE_THREAD_DETAIL: 'RECEIVE_THREAD_DETAIL',
   CLEAR_THREAD_DETAIL: 'CLEAR_THREAD_DETAIL',
-  ADD_THREAD_COMMENT: 'ADD_THREAD_COMMENT'
+  ADD_THREAD_COMMENT: 'ADD_THREAD_COMMENT',
+  UP_VOTE_THREAD: 'UP_VOTE_THREAD',
+  DOWN_VOTE_THREAD: 'DOWN_VOTE_THREAD',
+  NEUTRAL_VOTE_THREAD: 'NEUTRAL_VOTE_THREAD'
 };
 
 function receiveThreadDetailActionCreator(threadDetail) {
@@ -26,6 +29,36 @@ function addThreadCommentActionCreator(comment) {
     type: ActionType.ADD_THREAD_COMMENT,
     payload: {
       comment
+    }
+  };
+}
+
+function upVoteThreadActionCreator({ threadId, userId }) {
+  return {
+    type: ActionType.UP_VOTE_THREAD,
+    payload: {
+      threadId,
+      userId
+    }
+  };
+}
+
+function downVoteThreadActionCreator({ threadId, userId }) {
+  return {
+    type: ActionType.DOWN_VOTE_THREAD,
+    payload: {
+      threadId,
+      userId
+    }
+  };
+}
+
+function neutralVoteThreadActionCreator({ threadId, userId }) {
+  return {
+    type: ActionType.NEUTRAL_VOTE_THREAD,
+    payload: {
+      threadId,
+      userId
     }
   };
 }
@@ -54,10 +87,28 @@ function asyncAddThreadComment(content, threadId) {
   };
 }
 
+function asyncVoteThread({ threadId, voteType }) {
+  return async (dispatch) => {
+    try {
+      const vote = await api.addThreadVote(threadId, voteType);
+
+      if (voteType === 'up-vote') dispatch(upVoteThreadActionCreator(vote));
+      if (voteType === 'down-vote') dispatch(downVoteThreadActionCreator(vote));
+      if (voteType === 'neutral-vote') dispatch(neutralVoteThreadActionCreator(vote));
+    } catch (err) {
+      console.log('error:', err.message);
+    }
+  };
+}
+
 export {
   ActionType,
   receiveThreadDetailActionCreator,
-  asyncReceiveThreadDetail,
   addThreadCommentActionCreator,
-  asyncAddThreadComment
+  upVoteThreadActionCreator,
+  downVoteThreadActionCreator,
+  neutralVoteThreadActionCreator,
+  asyncReceiveThreadDetail,
+  asyncAddThreadComment,
+  asyncVoteThread
 };
