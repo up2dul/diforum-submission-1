@@ -28,10 +28,7 @@ const Thread = () => {
     dispatch(asyncReceiveThreadDetail(threadId));
   }, [threadId, dispatch]);
 
-  const handleCommentSubmit = (content) => {
-    dispatch(asyncAddThreadComment(content, threadId));
-    console.log('new comment:', content);
-  };
+  const handleCommentSubmit = (content) => dispatch(asyncAddThreadComment(content, threadId));
 
   return (
     <Layout withBackButton>
