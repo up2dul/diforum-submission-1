@@ -20,7 +20,7 @@ const Login = () => {
     const password = formRef.current[1].value;
 
     dispatch(asyncSetAuthUser({ email, password }));
-    Swal.fire('Login success!', 'Now you can interact with other', 'success');
+    Swal.fire('Log in success!', 'Now you can interact with other', 'success');
     navigate('/');
   };
 
