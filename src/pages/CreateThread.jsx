@@ -34,9 +34,15 @@ const CreateThread = () => {
         className='mx-auto mt-8 flex max-w-sm flex-col items-center justify-center gap-y-6'
         onSubmit={handleSubmit}
       >
-        <Input title='Title' type='text' placeholder='e.g. Hello world!' id='titleInput' />
+        <Input title='Title' type='text' placeholder='e.g. Hello world!' id='titleInput' max={50} />
 
-        <Input title='Category' type='text' placeholder='e.g. technology' id='categoryInput' />
+        <Input
+          title='Category'
+          type='text'
+          placeholder='e.g. technology'
+          id='categoryInput'
+          max={20}
+        />
 
         <Input
           title='Thread content'

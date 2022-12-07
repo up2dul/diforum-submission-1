@@ -20,8 +20,9 @@ const AddComment = ({ onSubmit }) => {
       <Input
         title='Add your comment'
         type='textarea'
-        placeholder='Your comment here...'
         id='commentInput'
+        placeholder='Your comment here... (max. 400 chars)'
+        max={400}
       />
 
       <br />
