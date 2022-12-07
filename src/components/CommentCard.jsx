@@ -1,12 +1,31 @@
-/* eslint-disable react/forbid-prop-types */
-import { useSelector } from 'react-redux';
-import { HiArrowDown, HiArrowUp } from 'react-icons/hi';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
+import { asyncVoteComment } from '@/states/thread-detail/action';
 import { postedAt } from '@/utils';
+import VoteButton from './VoteButton';
 
-const CommentCard = ({ content, createdAt, owner, upVotesBy, downVotesBy }) => {
+const CommentCard = ({ id: commentId, content, createdAt, owner, upVotesBy, downVotesBy }) => {
+  const { threadId } = useParams();
   const { authUser } = useSelector((states) => states);
+  const dispatch = useDispatch();
+
+  const handleUpVote = () => dispatch(asyncVoteComment({
+    threadId,
+    commentId,
+    voteType: 'up-vote'
+  }));
+  const handleDownVote = () => dispatch(asyncVoteComment({
+    threadId,
+    commentId,
+    voteType: 'down-vote'
+  }));
+  const handleNeutralVote = () => dispatch(asyncVoteComment({
+    threadId,
+    commentId,
+    voteType: 'neutral-vote'
+  }));
 
   return (
     <article className='flex flex-col gap-3 rounded-xl border py-3 px-4'>
@@ -23,21 +42,31 @@ const CommentCard = ({ content, createdAt, owner, upVotesBy, downVotesBy }) => {
 
       <div className='flex items-center justify-between gap-2 pt-2'>
         <div className='flex gap-8'>
-          <button
-            type='button'
-            title={authUser ? 'Up vote comment' : 'Log in to up vote'}
-            disabled={!authUser}
+          <VoteButton
+            options={{
+              voteType: 'comment',
+              upOrDown: 'up',
+              isDisabled: !authUser,
+              isVoted: upVotesBy.includes(authUser?.id)
+            }}
+            onVote={handleUpVote}
+            onNeutral={handleNeutralVote}
           >
-            <HiArrowUp className='mr-1 inline' /> {upVotesBy.length}
-          </button>
+            {upVotesBy.length}
+          </VoteButton>
 
-          <button
-            type='button'
-            title={authUser ? 'Down vote comment' : 'Log in to down vote'}
-            disabled={!authUser}
+          <VoteButton
+            options={{
+              voteType: 'comment',
+              upOrDown: 'down',
+              isDisabled: !authUser,
+              isVoted: downVotesBy.includes(authUser?.id)
+            }}
+            onVote={handleDownVote}
+            onNeutral={handleNeutralVote}
           >
-            <HiArrowDown className='mr-1 inline' /> {downVotesBy.length}
-          </button>
+            {downVotesBy.length}
+          </VoteButton>
         </div>
       </div>
     </article>
@@ -47,9 +76,13 @@ const CommentCard = ({ content, createdAt, owner, upVotesBy, downVotesBy }) => {
 CommentCard.propTypes = {
   content: PropTypes.string.isRequired,
   createdAt: PropTypes.string.isRequired,
-  owner: PropTypes.object.isRequired,
-  upVotesBy: PropTypes.array.isRequired,
-  downVotesBy: PropTypes.array.isRequired
+  owner: PropTypes.shape({
+    id: PropTypes.string,
+    name: PropTypes.string,
+    avatar: PropTypes.string
+  }).isRequired,
+  upVotesBy: PropTypes.arrayOf(PropTypes.string).isRequired,
+  downVotesBy: PropTypes.arrayOf(PropTypes.string).isRequired
 };
 
 export default CommentCard;
