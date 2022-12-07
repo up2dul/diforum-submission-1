@@ -1,13 +1,18 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
-import { HiArrowDown, HiArrowUp } from 'react-icons/hi';
 
-import { asyncAddThreadComment, asyncReceiveThreadDetail } from '@/states/thread-detail/action';
+import {
+  asyncAddThreadComment,
+  asyncReceiveThreadDetail,
+  asyncVoteThread
+} from '@/states/thread-detail/action';
+import { asyncPreloadProcess } from '@/states/is-preload/action';
 import { commentsCount, postedAt } from '@/utils';
 import Layout from '@/components/Layout';
 import AddComment from '@/components/AddComment';
 import CommentCard from '@/components/CommentCard';
+import VoteButton from '@/components/VoteButton';
 
 const Thread = () => {
   const { threadId } = useParams();
@@ -25,8 +30,13 @@ const Thread = () => {
   } = threadDetail;
 
   useEffect(() => {
+    dispatch(asyncPreloadProcess());
     dispatch(asyncReceiveThreadDetail(threadId));
   }, [threadId, dispatch]);
+
+  const handleUpVote = () => dispatch(asyncVoteThread({ threadId, voteType: 'up-vote' }));
+  const handleDownVote = () => dispatch(asyncVoteThread({ threadId, voteType: 'down-vote' }));
+  const handleNeutralVote = () => dispatch(asyncVoteThread({ threadId, voteType: 'neutral-vote' }));
 
   const handleCommentSubmit = (content) => dispatch(asyncAddThreadComment(content, threadId));
 
@@ -48,21 +58,27 @@ const Thread = () => {
 
         <div className='flex items-center justify-between gap-2'>
           <div className='flex gap-8'>
-            <button
-              type='button'
-              title={authUser ? 'Up vote thread' : 'Log in to up vote'}
-              disabled={!authUser}
+            <VoteButton
+              voteType='thread'
+              upOrDown='up'
+              isDisabled={!authUser}
+              isVoted={upVotesBy.includes(authUser.id)}
+              onVote={handleUpVote}
+              onNeutral={handleNeutralVote}
             >
-              <HiArrowUp className='mr-1 inline' /> {upVotesBy.length}
-            </button>
+              {upVotesBy.length}
+            </VoteButton>
 
-            <button
-              type='button'
-              title={authUser ? 'Down vote thread' : 'Log in to down vote'}
-              disabled={!authUser}
+            <VoteButton
+              voteType='thread'
+              upOrDown='down'
+              isDisabled={!authUser}
+              isVoted={downVotesBy.includes(authUser.id)}
+              onVote={handleDownVote}
+              onNeutral={handleNeutralVote}
             >
-              <HiArrowDown className='mr-1 inline' /> {downVotesBy.length}
-            </button>
+              {downVotesBy.length}
+            </VoteButton>
           </div>
 
           <h3>#{category}</h3>
@@ -83,8 +99,8 @@ const Thread = () => {
           <h3 className='mt-8 border-b-2 border-dashed pb-2'>{commentsCount(comments.length)}</h3>
 
           <div className='mt-5 flex flex-col gap-y-4'>
-            {comments?.map((comment) => (
-              <CommentCard key={comment.id} {...comment} />
+            {comments?.map((props) => (
+              <CommentCard key={props.id} {...props} />
             ))}
           </div>
         </div>
