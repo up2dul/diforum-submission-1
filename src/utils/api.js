@@ -233,16 +233,28 @@ const api = (() => {
 
   async function addCommentVote(threadId, commentId, voteType) {
     const response = await _fetchWithAuth(
-      `${BASE_URL}/threads/${threadId}/${voteType}/comments/${commentId}`
+      `${BASE_URL}/threads/${threadId}/comments/${commentId}/${voteType}`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }
     );
 
     const responseJson = await response.json();
 
-    const { status, message } = responseJson;
+    const {
+      status,
+      message,
+      data: { vote }
+    } = responseJson;
 
     if (status !== 'success') {
       throw new Error(message);
     }
+
+    return vote;
   }
   // #endregion Vote
 
